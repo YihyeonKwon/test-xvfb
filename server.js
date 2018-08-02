@@ -28,8 +28,9 @@ app.get('/api', function (req, res) {
 });
 
 app.post('/api/start', function (req, res) {
-	var params = req.body;
 
+	var params = req.body;
+	console.log('/api/start', params);
 	capture.startFfmpegPromise(params)
 	.then(function() {
 		res.sendStatus(200);
@@ -43,13 +44,14 @@ app.post('/api/upload', function (req, res) {
 });
 
 app.post('/api/stop', function (req, res) {
+	console.log('/api/stop');
 	capture.stopFfmpeg().then(function () {
-
+		res.sendStatus(200);
 	});
-	res.sendStatus(200);
 });
 
 app.post('/api/done', function (req, res) {
+	console.log('/api/done');
 	res.sendStatus(200);
 });
 
