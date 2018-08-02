@@ -54,8 +54,8 @@ app.post('/api/done', function (req, res) {
 });
 
 var options = {
-	key: fs.readFileSync('~/dev/test-xvfb/key.pem'),
-	cert: fs.readFileSync('~/dev/test-xvfb/cert.pem')
+	key: fs.readFileSync(path.join(__dirname('key.pem'))),
+	cert: fs.readFileSync(path.join(__dirname('cert.pem')))
 };
 var port2 = 443;
 var server = https.createServer(options, app).listen(port2, function () {
