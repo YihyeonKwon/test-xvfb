@@ -87,7 +87,7 @@ function onListening() {
 			// data from standard output is here as buffers
 		});
 
-		child.stderr.pipe(dest);
+		// child.stderr.pipe(dest);
 
 		child.on('close', function (code) {
 
