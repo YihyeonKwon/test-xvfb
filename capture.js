@@ -9,6 +9,7 @@ require('chromedriver');// 2.32.3
 
 var capture = {};
 capture.cardPlayerStart = function () {
+	console.log('cardPlayerStart');
 	if (driver === null) {
 		chromeOption.addArguments('--start-fullscreen');
 		chromeOption.addArguments('--disable-infobars');
