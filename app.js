@@ -2,10 +2,12 @@ var headless = require('headless');
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
 
+
+var arg = ('google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7').split(' ');
 var options = {
 	display: {width: 1920, height: 1080, depth: 32},
 	servernum: 44,
-	args: ['-extension', 'RANDR'],
+	args: arg,
 	stdio: 'inherit'
 };
 
@@ -30,7 +32,7 @@ headless(options, function(err, childProcess, servernum) {
 				ffmpeg.stdin.setEncoding('utf8');
 				ffmpeg.stdin.write('q');
 			});
-		}, 20000);
+		}, 30000);
 	}, 1000);
 
 });
