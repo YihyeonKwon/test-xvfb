@@ -80,7 +80,8 @@ function onListening() {
 			}
 			capture.cardPlayerStart();
 		// 	console.log('start xvfb');
-		// });
+		});
+
 		proc.on('close', function() {
 			console.log('close xvfb');
 		});
@@ -90,13 +91,20 @@ function onListening() {
 		proc.stderr.on('data', function(data) {
 			console.log('stderr xvfb');
 		});
-			setTimeout(function () {
 
-				console.log('stop');
-				capture.stopFfmpeg().then(function () {
-					// res.sendStatus(200);
-				});
-			}, 20000);
+		setTimeout(function () {
+			capture.startFfmpegPromise().then(function () {
+				setTimeout(function () {
+
+					console.log('stop');
+					capture.stopFfmpeg().then(function () {
+						// res.sendStatus(200);
+					});
+				}, 20000);
+			});
+		}, 5000);
+
+
 
 		// var arg = ('--listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
 		//
