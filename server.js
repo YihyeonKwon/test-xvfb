@@ -72,7 +72,7 @@ function onListening() {
 		exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24"', function (err, stdout, stderr) {
 			if (err) {
 				// node couldn't execute the command
-				console.log('error xvfb');
+				console.log('error xvfb', err);
 				return;
 			}
 			capture.cardPlayerStart();
