@@ -1,4 +1,6 @@
 var headless = require('headless');
+var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 var options = {
 	display: {width: 1920, height: 1080, depth: 32},
@@ -15,7 +17,7 @@ headless(options, function(err, childProcess, servernum) {
 
 	setTimeout(function () {
 		var command = '';
-		command += 'ffmpeg -y -f x11grab -draw_mouse 0 -video_size 900x900 -i :44+0,120 -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -r 60 -crf 15 -tune zerolatency -filter:a "volume=1.0" -c:a aac -strict experimental -ac 2 -b:a 192k /home/ubuntu/dev/test-xvfb/test_1.mp4';
+		command += 'ffmpeg -y -f x11grab -draw_mouse 0 -video_size 900x900 -i :' + servernum + '+0,120 -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -r 60 -crf 15 -tune zerolatency -filter:a "volume=1.0" -c:a aac -strict experimental -ac 2 -b:a 192k /home/ubuntu/dev/test-xvfb/test_1.mp4';
 
 		var ffmpeg = exec(command, function(err, stdout, stderr) {
 			if (err) {
