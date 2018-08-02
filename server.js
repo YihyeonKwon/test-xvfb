@@ -78,7 +78,7 @@ function onListening() {
 		// 		console.log('error xvfb', err);
 		// 		return;
 		// 	}
-		// 	capture.cardPlayerStart();
+			capture.cardPlayerStart();
 		// 	console.log('start xvfb');
 		// });
 		// proc.on('close', function() {
