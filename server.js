@@ -95,7 +95,7 @@ function onListening() {
 
 		var arg = ('--listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
 
-		xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
+		// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 
 		// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
 		// 	console.log('stdout: ' + stdout);
@@ -107,6 +107,14 @@ function onListening() {
 
 	}, 500)
 }
+
+xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
+	console.log('stdout: ' + stdout);
+	console.log('stderr: ' + stderr);
+	if (error !== null) {
+		console.log('exec error: ' + error);
+	}
+});
 
 function normalizePort(val) {
 	var port = parseInt(val, 10);
