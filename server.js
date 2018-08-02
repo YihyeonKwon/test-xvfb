@@ -93,13 +93,13 @@ function onListening() {
 		// 	console.log('stderr xvfb');
 		// });
 
-		// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
-		// 	console.log('stdout: ' + stdout);
-		// 	console.log('stderr: ' + stderr);
-		// 	if (error !== null) {
-		// 		console.log('exec error: ' + error);
-		// 	}
-		// });
+		xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
+			console.log('stdout: ' + stdout);
+			console.log('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
+		});
 
 	}, 500)
 }
