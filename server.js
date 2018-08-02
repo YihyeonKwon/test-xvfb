@@ -72,25 +72,25 @@ function onListening() {
 	console.log('onListening');
 
 	setTimeout(function () {
-		var proc = exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (err, stdout, stderr) {
-			if (err) {
-				// node couldn't execute the command
-				console.log('error xvfb', err);
-				return;
-			}
-			capture.cardPlayerStart();
-		// 	console.log('start xvfb');
-		});
-
-		proc.on('close', function() {
-			console.log('close xvfb');
-		});
-		proc.stdout.on('data', function(data) {
-			console.log('stdout xvfb');
-		});
-		proc.stderr.on('data', function(data) {
-			console.log('stderr xvfb');
-		});
+		// var proc = exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (err, stdout, stderr) {
+		// 	if (err) {
+		// 		// node couldn't execute the command
+		// 		console.log('error xvfb', err);
+		// 		return;
+		// 	}
+		// 	capture.cardPlayerStart();
+		// // 	console.log('start xvfb');
+		// });
+		//
+		// proc.on('close', function() {
+		// 	console.log('close xvfb');
+		// });
+		// proc.stdout.on('data', function(data) {
+		// 	console.log('stdout xvfb');
+		// });
+		// proc.stderr.on('data', function(data) {
+		// 	console.log('stderr xvfb');
+		// });
 
 		setTimeout(function () {
 			capture.startFfmpegPromise().then(function () {

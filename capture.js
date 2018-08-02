@@ -32,7 +32,7 @@ capture.startFfmpegPromise = function (params) {
 		console.log('startFfmpegPromise');
 
 		var command = '';
-		command += 'ffmpeg -y -f x11grab -draw_mouse 0 -video_size 900x900 -i :44+0,120 -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -r 60 -crf 15 -tune zerolatency -filter:a "volume=1.0" -c:a aac -strict experimental -ac 2 -b:a 192k ~/dev/test-xvfb/test_1.mp4';
+		command += 'ffmpeg -y -f x11grab -draw_mouse 0 -video_size 900x900 -i :44+0,120 -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -r 60 -crf 15 -tune zerolatency -filter:a "volume=1.0" -c:a aac -strict experimental -ac 2 -b:a 192k /home/ubuntu/dev/test-xvfb/test_1.mp4';
 
 		try {
 			// exec 으로 실행
