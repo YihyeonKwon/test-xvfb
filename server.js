@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+var xvrf, ffmpeg;
 
 
 app.get('/api', function (req, res) {
@@ -29,15 +30,9 @@ app.get('/api', function (req, res) {
 });
 
 app.post('/api/start', function (req, res) {
+	console.log('/api/start');
+	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', '/home/forge/default/public/test_10.mp4'], {stdio: 'inherit'});
 
-	var params = req.body;
-	console.log('/api/start', params);
-	capture.startFfmpegPromise(params)
-	.then(function() {
-		res.sendStatus(200);
-	}).catch(function () {
-		res.status(422).json('error start');
-	})
 });
 
 app.post('/api/upload', function (req, res) {
@@ -46,19 +41,24 @@ app.post('/api/upload', function (req, res) {
 
 app.post('/api/stop', function (req, res) {
 	console.log('/api/stop');
-	capture.stopFfmpeg().then(function () {
-		res.sendStatus(200);
-	});
+	ffmpeg.kill();
 });
 
 app.post('/api/done', function (req, res) {
 	console.log('/api/done');
-	res.sendStatus(200);
+	xvrf.kill();
+});
+
+process.on('exit', function () {
+	xvrf.kill();
+	ffmpeg.kill();
 });
 
 var options = {
-	key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
-	cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
+	// key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
+	// cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
+	key: fs.readFileSync(__dirname + '/key.pem'),
+	cert: fs.readFileSync(__dirname + '/cert.pem')
 };
 var port2 = 443;
 var server = https.createServer(options, app).listen(port2, function () {
@@ -67,6 +67,7 @@ var server = https.createServer(options, app).listen(port2, function () {
 
 
 server.on('listening', onListening);
+
 
 function onListening() {
 	console.log('onListening');
@@ -92,27 +93,13 @@ function onListening() {
 		// 	console.log('stderr xvfb');
 		// });
 
-		setTimeout(function () {
-			capture.startFfmpegPromise().then(function () {
-				setTimeout(function () {
-
-					console.log('stop');
-					capture.stopFfmpeg().then(function () {
-						// res.sendStatus(200);
-					});
-				}, 20000);
-			});
-		}, 5000);
-
-
-
-		// var arg = ('--listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
-		//
-		// var child = spawnSync('xvfb-run', arg);
-		//
-		// console.log('error', child.error);
-		// console.log('stdout ', child.stdout);
-		// console.log('stderr ', child.stderr);
+		// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
+		// 	console.log('stdout: ' + stdout);
+		// 	console.log('stderr: ' + stderr);
+		// 	if (error !== null) {
+		// 		console.log('exec error: ' + error);
+		// 	}
+		// });
 
 	}, 500)
 }
