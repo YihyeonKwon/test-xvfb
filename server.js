@@ -69,7 +69,7 @@ function onListening() {
 	console.log('onListening');
 
 	setTimeout(function () {
-		exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome', function (err, stdout, stderr) {
+		exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome > /dev/null', function (err, stdout, stderr) {
 			if (err) {
 				// node couldn't execute the command
 				console.log('error xvfb', err);
