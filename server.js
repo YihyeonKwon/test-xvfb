@@ -58,19 +58,19 @@ process.on('exit', function () {
 	ffmpeg.kill();
 });
 
-// var options = {
-// 	// key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
-// 	// cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
-// 	key: fs.readFileSync(__dirname + '/key.pem'),
-// 	cert: fs.readFileSync(__dirname + '/cert.pem')
-// };
-// var port2 = 443;
-// var server = https.createServer(options, app).listen(port2, function () {
-// 	console.log("Https server listening on port " + port2);
-// });
+var options = {
+	// key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
+	// cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
+	key: fs.readFileSync(__dirname + '/key.pem'),
+	cert: fs.readFileSync(__dirname + '/cert.pem')
+};
+var port2 = 443;
+var server = https.createServer(options, app).listen(port2, function () {
+	console.log("Https server listening on port " + port2);
+});
 
-var server = http.createServer(app);
-server.listen(port);
+// var server = http.createServer(app);
+// server.listen(port);
 
 
 server.on('listening', onListening);
