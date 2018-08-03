@@ -115,6 +115,7 @@ function onListening() {
 		console.log('Xvfb pid', childProcess.pid);
 		console.log('err should be null', err);
 
+		var ex = spawn('export', ['DISPLAY=:' + servernum], {stdio: 'inherit'});
 
 		chromeOption.addArguments('--start-fullscreen');
 		chromeOption.addArguments('--disable-infobars');
