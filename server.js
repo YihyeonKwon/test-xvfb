@@ -119,9 +119,9 @@ function onListening() {
 		chromeOption.addArguments('--start-fullscreen');
 		chromeOption.addArguments('--disable-infobars');
 		chromeOption.addArguments('--disable-notifications');
-		// chromeOption.addArguments('--headless');
+		chromeOption.addArguments('--headless');
 		// chromeOption.addArguments('--disable-gpu');
-		chromeOption.addArguments('--no-sandbox');
+		// chromeOption.addArguments('--no-sandbox');
 		// chromeOption.addArguments('--remote-debugging-port=4444');
 
 		driver = new webdriver.Builder()
