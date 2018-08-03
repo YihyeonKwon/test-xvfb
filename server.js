@@ -119,6 +119,9 @@ function onListening() {
 		chromeOption.addArguments('--start-fullscreen');
 		chromeOption.addArguments('--disable-infobars');
 		chromeOption.addArguments('--disable-notifications');
+		chromeOption.addArguments('--headless');
+		chromeOption.addArguments('--disable-gpu');
+		chromeOption.addArguments('--no-sandbox');
 
 		driver = new webdriver.Builder()
 		// driver.Chrome('path to /chromedriver')
