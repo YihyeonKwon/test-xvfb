@@ -127,7 +127,7 @@ function onListening() {
 		// chromeOption.addArguments('--remote-debugging-port=4444');
 
 		driver = new webdriver.Builder()
-		.usingServer(servernum)
+		.usingServer('' + servernum)
 		// driver.Chrome('path to /chromedriver')
 		.forBrowser('chrome')
 		.setChromeOptions(chromeOption)
