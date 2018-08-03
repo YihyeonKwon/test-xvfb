@@ -116,7 +116,7 @@ function onListening() {
 		console.log('err should be null', err);
 
 		// var ex = spawn('export', ['DISPLAY=:' + servernum], {stdio: 'inherit'});
-		// var ex = exec('export DISPLAY=:' + servernum);
+		var ex = exec('export DISPLAY=:' + servernum);
 
 		chromeOption.addArguments('--start-fullscreen');
 		chromeOption.addArguments('--disable-infobars');
@@ -133,14 +133,14 @@ function onListening() {
 		.setChromeOptions(chromeOption)
 		.build();
 
-		// setTimeout(function () {
-		//
-		// 	driver.get('https://tyle.io/player/r4goi5fmzwgox7');
-		//
-		// 	ffmpeg = spawn('ffmpeg', ['-t', 20, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':' + servernum  + '.0' + '+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-		// 	// ffmpeg = spawn('ffmpeg', ['-t', 20, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':4444' + '.' + servernum + '+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-		// 	// ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '1400x900', '-i', 'http://localhost:4444+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-		// }, 1000);
+		setTimeout(function () {
+
+			driver.get('https://tyle.io/player/r4goi5fmzwgox7');
+
+			ffmpeg = spawn('ffmpeg', ['-t', 20, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':0.0' + '+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+			// ffmpeg = spawn('ffmpeg', ['-t', 20, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':4444' + '.' + servernum + '+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+			// ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '1400x900', '-i', 'http://localhost:4444+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+		}, 1000);
 	});
 
 	setTimeout(function () {
