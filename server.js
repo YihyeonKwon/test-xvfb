@@ -120,7 +120,7 @@ function onListening() {
 		chromeOption.addArguments('--disable-infobars');
 		chromeOption.addArguments('--disable-notifications');
 		chromeOption.addArguments('--headless');
-		// chromeOption.addArguments('--disable-gpu');
+		chromeOption.addArguments('--disable-gpu');
 		// chromeOption.addArguments('--no-sandbox');
 		// chromeOption.addArguments('--remote-debugging-port=4444');
 
