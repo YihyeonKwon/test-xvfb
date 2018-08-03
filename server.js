@@ -29,9 +29,13 @@ app.get('/api', function (req, res) {
 	res.send(200);
 });
 
-app.post('/api/start', function (req, res) {
+app.get('/api/start', function (req, res) {
 	console.log('/api/start');
-	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+	// ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+
+});
+
+app.post('/api/start', function (req, res) {
 
 });
 
@@ -54,16 +58,19 @@ process.on('exit', function () {
 	ffmpeg.kill();
 });
 
-var options = {
-	// key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
-	// cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
-	key: fs.readFileSync(__dirname + '/key.pem'),
-	cert: fs.readFileSync(__dirname + '/cert.pem')
-};
-var port2 = 443;
-var server = https.createServer(options, app).listen(port2, function () {
-	console.log("Https server listening on port " + port2);
-});
+// var options = {
+// 	// key: fs.readFileSync('/home/ubuntu/dev/test-xvfb/key.pem'),
+// 	// cert: fs.readFileSync('/home/ubuntu/dev/test-xvfb/cert.pem')
+// 	key: fs.readFileSync(__dirname + '/key.pem'),
+// 	cert: fs.readFileSync(__dirname + '/cert.pem')
+// };
+// var port2 = 443;
+// var server = https.createServer(options, app).listen(port2, function () {
+// 	console.log("Https server listening on port " + port2);
+// });
+
+var server = http.createServer(app);
+server.listen(port);
 
 
 server.on('listening', onListening);
@@ -93,7 +100,7 @@ function onListening() {
 		// 	console.log('stderr xvfb');
 		// });
 
-		var arg = ('--listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
+		// var arg = ('--listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
 
 		// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 
@@ -108,13 +115,13 @@ function onListening() {
 	}, 500)
 }
 
-xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
-	console.log('stdout: ' + stdout);
-	console.log('stderr: ' + stderr);
-	if (error !== null) {
-		console.log('exec error: ' + error);
-	}
-});
+// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
+// 	console.log('stdout: ' + stdout);
+// 	console.log('stderr: ' + stderr);
+// 	if (error !== null) {
+// 		console.log('exec error: ' + error);
+// 	}
+// });
 
 function normalizePort(val) {
 	var port = parseInt(val, 10);
