@@ -39,17 +39,22 @@ headless(options, function(err, childProcess, servernum) {
 });*/
 
 
-'use strict';
+// 'use strict';
+//
+// const puppeteer = require('puppeteer');
+//
+// (async() => {
+// 	const browser = await puppeteer.launch();
+// const page = await browser.newPage();
+// await page.goto('http://example.com');
+// // await page.screenshot({path: 'example.png'});
+//
+// await Page.startScreencast
+//
+// await browser.close();
+// })();
 
-const puppeteer = require('puppeteer');
 
-(async() => {
-	const browser = await puppeteer.launch();
-const page = await browser.newPage();
-await page.goto('http://example.com');
-await page.screenshot({path: 'example.png'});
-await browser.close();
-})();
 
 // var record = require('./pe');
 //
