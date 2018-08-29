@@ -104,6 +104,7 @@ app.get('/api/start', function (req, res) {
 			// ]);
 
 			chrome = spawn('google-chrome', [
+				'--remote-debugging-port='+port,
 				'--allow-running-insecure-content',
 				'--window-size=1920,1080',
 				'--start-fullscreen',
