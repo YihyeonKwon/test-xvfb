@@ -31,6 +31,7 @@ var xvrf, chrome, ffmpeg;
 
 
 app.get('/api', function (req, res) {
+	console.log('/api');
 	res.send(200);
 });
 
@@ -78,16 +79,18 @@ app.get('/api/start', function (req, res) {
 	// chrome = pro.spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', ' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	//
-	setTimeout(function () {
-		ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '600x600', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-
-		res.sendStatus(200);
-	}, 5000);
+	// setTimeout(function () {
+	// 	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '600x600', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+	//
+	// 	res.sendStatus(200);
+	// }, 5000);
 
 });
 
 app.post('/api/start', function (req, res) {
-
+	console.log('post /api/start');
+	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '600x600', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+	res.sendStatus(200);
 });
 
 app.post('/api/upload', function (req, res) {
@@ -103,8 +106,11 @@ app.get('/api/stop', function (req, res) {
 })
 
 app.post('/api/stop', function (req, res) {
-	console.log('/api/stop');
+	console.log('post /api/stop');
 	// ffmpeg.kill();
+
+	ffmpeg.kill();
+	res.sendStatus(200);
 });
 
 app.post('/api/done', function (req, res) {
@@ -137,6 +143,17 @@ server.on('listening', onListening);
 
 function onListening() {
 	console.log('onListening');
+
+	setTimeout(function () {
+		xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
+			console.log('stdout: ' + stdout);
+			console.log('stderr: ' + stderr);
+			if (error !== null) {
+				console.log('exec error: ' + error);
+			}
+		});
+	}, 3000);
+
 
 	// var headless = require('headless');
 	// headless(options, function(err, childProcess, servernum) {
