@@ -86,7 +86,7 @@ app.get('/api/start', function (req, res) {
 		},1000);
 	});
 	function startChrome(id,port,callback){
-		var terminal = cp.spawn('bash');
+		var terminal = spawn('bash');
 		var chrome = {};
 
 		terminal.on('exit', function (code) {
