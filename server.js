@@ -88,7 +88,7 @@ app.get('/api/start', function (req, res) {
 		ffmpeg = spawn('ffmpeg', [/*'-t', 10, */'-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '800x800', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
 		setTimeout(function(){
 			ffmpeg.kill();
-		}, 10000);
+		}, 15000);
 
 	});
 	function startChrome(id,port,callback){
