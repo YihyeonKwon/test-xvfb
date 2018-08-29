@@ -144,15 +144,15 @@ server.on('listening', onListening);
 function onListening() {
 	console.log('onListening');
 
-	setTimeout(function () {
-		xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
-			console.log('stdout: ' + stdout);
-			console.log('stderr: ' + stderr);
-			if (error !== null) {
-				console.log('exec error: ' + error);
-			}
-		});
-	}, 3000);
+	// setTimeout(function () {
+	// 	xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
+	// 		console.log('stdout: ' + stdout);
+	// 		console.log('stderr: ' + stderr);
+	// 		if (error !== null) {
+	// 			console.log('exec error: ' + error);
+	// 		}
+	// 	});
+	// }, 3000);
 
 
 	// var headless = require('headless');
