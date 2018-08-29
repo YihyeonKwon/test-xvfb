@@ -39,22 +39,22 @@ app.get('/api/start', function (req, res) {
 
 
 	// console.log("111");
-	// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
-	// 	console.log('stdout: ' + stdout);
-	// 	console.log('stderr: ' + stderr);
-	// 	if (error !== null) {
-	// 		console.log('exec error: ' + error);
-	// 	}
-	// });
+	xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7?' + '52.79.228.120' + ' > /dev/null', function (error, stdout, stderr) {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	});
 
 
 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	//
-	// setTimeout(function () {
-	// 	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-	//
-	// 	res.sendStatus(200);
-	// }, 5000);
+	setTimeout(function () {
+		ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+
+		res.sendStatus(200);
+	}, 5000);
 
 });
 
@@ -69,7 +69,7 @@ app.post('/api/upload', function (req, res) {
 app.get('/api/stop', function (req, res) {
 	console.log('/api/stop');
 	//
-	// ffmpeg.kill();xvrf.kill();
+	ffmpeg.kill();xvrf.kill();
 	res.sendStatus(200);
 })
 
@@ -148,75 +148,75 @@ function onListening() {
 	// ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '1400x900', '-i', 'http://localhost:4444+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
 
 
-	setTimeout(function () {
-		// var proc = exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (err, stdout, stderr) {
-		// 	if (err) {
-		// 		// node couldn't execute the command
-		// 		console.log('error xvfb', err);
-		// 		return;
-		// 	}
-		// 	capture.cardPlayerStart();
-		// // 	console.log('start xvfb');
-		// });
-		//
-		// proc.on('close', function() {
-		// 	console.log('close xvfb');
-		// });
-		// proc.stdout.on('data', function(data) {
-		// 	console.log('stdout xvfb');
-		// });
-		// proc.stderr.on('data', function(data) {
-		// 	console.log('stderr xvfb');
-		// });
-
-		// var arg = ('--listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
-
-		// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
-
-		// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
-		// 	console.log('stdout: ' + stdout);
-		// 	console.log('stderr: ' + stderr);
-		// 	if (error !== null) {
-		// 		console.log('exec error: ' + error);
-		// 	}
-		// });
-
-		var Pusher = require('pusher-js');
-		var config = {
-			"PUSHER_KEY": "55d33f290d0b221917a0",
-			"PUSHER_SECRET": "12907a58891f629ee561",
-			"PUSHER_APP_ID": "76479",
-			"PUSHER_CLUSTER": "mt1"
-		};
-		var pusher = new Pusher(config['PUSHER_KEY'], {
-			cluster: config['PUSHER_CLUSTER'],
-			encrypted: true
-		});
-
-		var jsSHA = require("jssha");
-		var shaObj = new jsSHA("SHA-1", "TEXT");
-		shaObj.update("흥짱" + "test_xvfb_99");
-		var hash = shaObj.getHash("HEX");
-
-		var channel = pusher.subscribe('user-channel-' + hash);
-		channel.bind('start-xvfb', function (data) {
-			console.log(data);
-			xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/player/zc4td5fb1z37ns > /dev/null', function (error, stdout, stderr) {
-				console.log('stdout: ' + stdout);
-				console.log('stderr: ' + stderr);
-				if (error !== null) {
-					console.log('exec error: ' + error);
-				}
-			});
-		});
-		channel.bind('start-ffmpeg', function (data) {
-			ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
-		});
-		channel.bind('stop-ffmpeg', function (data) {
-			xvrf.kill();
-			ffmpeg.kill();
-		});
-	}, 500)
+	// setTimeout(function () {
+	// 	// var proc = exec('xvfb-run --listen-tcp --server-num 44 --auth-file /tmp/xvfb.auth -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (err, stdout, stderr) {
+	// 	// 	if (err) {
+	// 	// 		// node couldn't execute the command
+	// 	// 		console.log('error xvfb', err);
+	// 	// 		return;
+	// 	// 	}
+	// 	// 	capture.cardPlayerStart();
+	// 	// // 	console.log('start xvfb');
+	// 	// });
+	// 	//
+	// 	// proc.on('close', function() {
+	// 	// 	console.log('close xvfb');
+	// 	// });
+	// 	// proc.stdout.on('data', function(data) {
+	// 	// 	console.log('stdout xvfb');
+	// 	// });
+	// 	// proc.stderr.on('data', function(data) {
+	// 	// 	console.log('stderr xvfb');
+	// 	// });
+	//
+	// 	// var arg = ('--listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null').split(' ');
+	//
+	// 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
+	//
+	// 	// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
+	// 	// 	console.log('stdout: ' + stdout);
+	// 	// 	console.log('stderr: ' + stderr);
+	// 	// 	if (error !== null) {
+	// 	// 		console.log('exec error: ' + error);
+	// 	// 	}
+	// 	// });
+	//
+	// 	var Pusher = require('pusher-js');
+	// 	var config = {
+	// 		"PUSHER_KEY": "55d33f290d0b221917a0",
+	// 		"PUSHER_SECRET": "12907a58891f629ee561",
+	// 		"PUSHER_APP_ID": "76479",
+	// 		"PUSHER_CLUSTER": "mt1"
+	// 	};
+	// 	var pusher = new Pusher(config['PUSHER_KEY'], {
+	// 		cluster: config['PUSHER_CLUSTER'],
+	// 		encrypted: true
+	// 	});
+	//
+	// 	var jsSHA = require("jssha");
+	// 	var shaObj = new jsSHA("SHA-1", "TEXT");
+	// 	shaObj.update("흥짱" + "test_xvfb_99");
+	// 	var hash = shaObj.getHash("HEX");
+	//
+	// 	var channel = pusher.subscribe('user-channel-' + hash);
+	// 	channel.bind('start-xvfb', function (data) {
+	// 		console.log(data);
+	// 		// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/player/zc4td5fb1z37ns > /dev/null', function (error, stdout, stderr) {
+	// 		// 	console.log('stdout: ' + stdout);
+	// 		// 	console.log('stderr: ' + stderr);
+	// 		// 	if (error !== null) {
+	// 		// 		console.log('exec error: ' + error);
+	// 		// 	}
+	// 		// });
+	// 	});
+	// 	channel.bind('start-ffmpeg', function (data) {
+	// 		// ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '900x900', '-i', ':44+0,120', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+	// 	});
+	// 	channel.bind('stop-ffmpeg', function (data) {
+	// 		// xvrf.kill();
+	// 		// ffmpeg.kill();
+	// 	});
+	// }, 500)
 }
 
 // xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://tyle.io/player/r4goi5fmzwgox7 > /dev/null', function (error, stdout, stderr) {
