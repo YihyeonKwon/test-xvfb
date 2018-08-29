@@ -85,7 +85,7 @@ app.get('/api/start', function (req, res) {
 		// 	chrome.kill('doh!');
 		// }, 1000);
 
-		ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '400x400', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+		ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '800x800', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
 		setTimeout(function(){
 			ffmpeg.kill();
 		}, 5000);
@@ -98,10 +98,20 @@ app.get('/api/start', function (req, res) {
 		terminal.on('exit', function (code) {
 
 			console.log('Starting chrome');
-			chrome = spawn('google-chrome',[
-				'--remote-debugging-port='+port,
-				'http://www.chrome.com'
+			// chrome = spawn('google-chrome',[
+			// 	'--remote-debugging-port='+port,
+			// 	'http://www.chrome.com'
+			// ]);
+
+			chrome = spawn('google-chrome', [
+				'--allow-running-insecure-content',
+				'--window-size=1920,1080',
+				'--start-fullscreen',
+				'--disable-infobars',
+				'--disable-notifications',
+				'https://tyle.io/player/r4goi5fmzwgox7'
 			]);
+
 			callback(null,id,chrome);
 		});
 
@@ -113,7 +123,7 @@ app.get('/api/start', function (req, res) {
 			// terminal.stdin.write('touch "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
 			// terminal.stdin.write('chmod 777 "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
 			terminal.stdin.end();
-		}, 5000);
+		}, 10000);
 	}
 
 	// chrome = pro.spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
