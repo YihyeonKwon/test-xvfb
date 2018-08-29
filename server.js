@@ -47,6 +47,11 @@ app.get('/api/start', function (req, res) {
 	// 		console.log('exec error: ' + error);
 	// 	}
 	// });
+	//
+	// setTimeout(function () {
+	// 	ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '600x600', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+	//
+	// }, 5000);
 
 /*
 	var rXvfb = require('xvfb');
@@ -76,7 +81,7 @@ app.get('/api/start', function (req, res) {
 		}
 	});*/
 
-	var chrome_count = 0;
+	/*var chrome_count = 0;
 	startChrome(chrome_count++,9222,function chromeStared(err,id,chrome){
 		res.send('Chrome '+id+' Started\r\n');
 		console.log('Simulating some data parsing');
@@ -85,7 +90,7 @@ app.get('/api/start', function (req, res) {
 		// 	chrome.kill('doh!');
 		// }, 1000);
 
-		ffmpeg = spawn('ffmpeg', [/*'-t', 10, */'-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '800x800', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+		ffmpeg = spawn('ffmpeg', [/!*'-t', 10, *!/'-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '800x800', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
 		setTimeout(function(){
 			ffmpeg.kill();
 		}, 15000);
@@ -125,7 +130,7 @@ app.get('/api/start', function (req, res) {
 			// terminal.stdin.write('chmod 777 "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
 			terminal.stdin.end();
 		}, 5000);
-	}
+	}*/
 
 	// chrome = pro.spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', ' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
@@ -194,6 +199,21 @@ server.on('listening', onListening);
 
 function onListening() {
 	console.log('onListening');
+
+	xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --allow-running-insecure-content --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/labs/image2video?ip=' + '52.79.228.120' + ' > /dev/null', function (error, stdout, stderr) {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	});
+
+	setTimeout(function () {
+		ffmpeg = spawn('ffmpeg', ['-t', 10, '-y', '-f', 'x11grab', '-draw_mouse', 0, '-video_size', '600x600', '-i', ':44+0,0', '-vcodec', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'ultrafast', '-r', 60, '-crf', 15, '-tune', 'zerolatency', '-filter:a', 'volume=1.0', '-c:a', 'aac', '-strict', 'experimental', '-ac', 2, '-b:a', '192k', __dirname + '/test_10.mp4'], {stdio: 'inherit'});
+		setTimeout(function(){
+			ffmpeg.kill();
+		}, 15000);
+	}, 5000);
 
 	// setTimeout(function () {
 	// 	xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
