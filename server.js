@@ -47,6 +47,7 @@ app.get('/api/start', function (req, res) {
 	// 	}
 	// });
 
+/*
 	var rXvfb = require('xvfb');
 	xvrf = new rXvfb({
 		displayNum: 44,
@@ -58,6 +59,15 @@ app.get('/api/start', function (req, res) {
 
 	// chrome = pro.spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	pro.exec('google-chrome --allow-running-insecure-content --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/labs/image2video?ip=' + '52.79.228.120' + ' > /dev/null', function (error, stdout, stderr) {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('exec error: ' + error);
+		}
+	});
+*/
+
+	xvrf = exec('sh ' + __dirname + 'ba.sh', function (error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
 		if (error !== null) {
