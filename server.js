@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-var xvrf, ffmpeg;
+var xvrf, chrome, ffmpeg;
 
 
 app.get('/api', function (req, res) {
@@ -39,15 +39,25 @@ app.get('/api/start', function (req, res) {
 
 
 	// console.log("111");
-	xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --allow-running-insecure-content --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/labs/image2video?ip=' + '52.79.228.120' + ' > /dev/null', function (error, stdout, stderr) {
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-		if (error !== null) {
-			console.log('exec error: ' + error);
-		}
+	// xvrf = exec('xvfb-run --listen-tcp --server-num 44 -s "-ac -screen 0 1920x1080x24" google-chrome --allow-running-insecure-content --window-size=1920,1080 --start-fullscreen --disable-infobars --disable-notifications https://test.tyle.io/labs/image2video?ip=' + '52.79.228.120' + ' > /dev/null', function (error, stdout, stderr) {
+	// 	console.log('stdout: ' + stdout);
+	// 	console.log('stderr: ' + stderr);
+	// 	if (error !== null) {
+	// 		console.log('exec error: ' + error);
+	// 	}
+	// });
+
+	var rXvfb = require('xvfb');
+	xvrf = new rXvfb({
+		displayNum: 44,
+		xvfb_args: [
+			'-screen 0 1920x1080x24'
+		]
 	});
+	xvrf.startSync();
 
 
+	chrome = spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', ' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	//
 	setTimeout(function () {
@@ -69,7 +79,8 @@ app.post('/api/upload', function (req, res) {
 app.get('/api/stop', function (req, res) {
 	console.log('/api/stop');
 	//
-	ffmpeg.kill();xvrf.kill();
+	ffmpeg.kill();
+	// xvrf.kill();
 	res.sendStatus(200);
 })
 
