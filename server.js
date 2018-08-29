@@ -68,13 +68,47 @@ app.get('/api/start', function (req, res) {
 	});
 */
 
-	xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
+	/*xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
 		if (error !== null) {
 			console.log('exec error: ' + error);
 		}
+	});*/
+
+	var chrome_count = 0;
+	startChrome(chrome_count++,9222,function chromeStared(err,id,chrome){
+		res.send('Chrome '+id+' Started\r\n');
+		console.log('Simulating some data parsing');
+		setTimeout(function(){
+			console.log('Shutdown chrome '+id);
+			chrome.kill('doh!');
+		},1000);
 	});
+	function startChrome(id,port,callback){
+		var terminal = cp.spawn('bash');
+		var chrome = {};
+
+		terminal.on('exit', function (code) {
+
+			console.log('Starting chrome');
+			chrome = spawn('google-chrome',[
+				'--remote-debugging-port='+port,
+				'http://www.chrome.com'
+			]);
+			callback(null,id,chrome);
+		});
+
+		setTimeout(function() {
+			console.log('Sending stdin to terminal');
+			terminal.stdin.write('echo "Hello"');
+			// terminal.stdin.write('rm -rf /Volumes/DATA/repos/scrapper/userdata'+'\n');
+			// terminal.stdin.write('mkdir /Volumes/DATA/repos/scrapper/userdata'+'\n');
+			// terminal.stdin.write('touch "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
+			// terminal.stdin.write('chmod 777 "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
+			// terminal.stdin.end();
+		}, 5000);
+	}
 
 	// chrome = pro.spawn('google-chrome', [' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
 	// xvrf = spawn('xvfb-run', ['--listen-tcp', '--server-num', '44', '-s', '"-ac -screen 0 1920x1080x24"', 'google-chrome', ' --allow-running-insecure-content ', '--window-size=1920,1080', '--start-fullscreen', '--disable-infobars', '--disable-notifications', 'https://tyle.io/player/r4goi5fmzwgox7', '>', '/dev/null'], {stdio: 'inherit'});
