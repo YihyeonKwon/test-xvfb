@@ -67,7 +67,7 @@ app.get('/api/start', function (req, res) {
 	});
 */
 
-	xvrf = exec('sh ' + __dirname + 'ba.sh', function (error, stdout, stderr) {
+	xvrf = exec('sh ' + __dirname + '/ba.sh', function (error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
 		if (error !== null) {
