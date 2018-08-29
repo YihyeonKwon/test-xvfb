@@ -83,7 +83,7 @@ app.get('/api/start', function (req, res) {
 		setTimeout(function(){
 			console.log('Shutdown chrome '+id);
 			chrome.kill('doh!');
-		},1000);
+		}, 1000);
 	});
 	function startChrome(id,port,callback){
 		var terminal = spawn('bash');
@@ -106,7 +106,7 @@ app.get('/api/start', function (req, res) {
 			// terminal.stdin.write('mkdir /Volumes/DATA/repos/scrapper/userdata'+'\n');
 			// terminal.stdin.write('touch "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
 			// terminal.stdin.write('chmod 777 "/Volumes/DATA/repos/scrapper/userdata/First Run"'+'\n');
-			// terminal.stdin.end();
+			terminal.stdin.end();
 		}, 5000);
 	}
 
